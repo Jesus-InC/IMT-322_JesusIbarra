@@ -18,12 +18,21 @@ def clasificar_estado(distancia):
     else:
         return "OCUPADO"
 
+def limpiar_archivo_al_inicio():
+    # Esta funcion borra el CSV viejo para empezar una sesion limpia
+    archivo = obtener_ruta_csv()
+    if os.path.exists(archivo):
+        os.remove(archivo)
+
 def guardar_en_csv(fecha_hora, distancia, estado):
     archivo_csv = obtener_ruta_csv()
-    escribir_encabezado = not os.path.exists(archivo_csv)
-
+    # El modo 'a' permite ir agregando lineas sin borrar las anteriores
     with open(archivo_csv, mode="a", newline="", encoding="utf-8") as f:
         escritor = csv.writer(f)
-        if escribir_encabezado:
+        
+        # Si el archivo esta vacio (posicion 0), escribimos encabezados
+        if f.tell() == 0:
             escritor.writerow(["fecha_hora", "distancia_cm", "estado"])
+            
         escritor.writerow([fecha_hora, distancia, estado])
+

@@ -1,6 +1,6 @@
 import time
 from datetime import datetime
-from modulos import leer_distancia_i2c, clasificar_estado, guardar_en_csv, generar_grafica
+from modulos import leer_distancia_i2c, clasificar_estado, guardar_en_csv, generar_grafica, limpiar_archivo_al_inicio
 
 INTERVALO_MUESTREO = 2.0 
 MUESTRAS_MINIMAS = 30     
@@ -9,6 +9,7 @@ lista_tiempos = []
 lista_distancias = []
 
 print("Iniciando comunicacion I2C con ESP32...")
+limpiar_archivo_al_inicio()
 contador_muestras = 0
 
 try:
